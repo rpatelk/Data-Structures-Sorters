@@ -62,6 +62,9 @@ class DoublyLinkedList:
             self.__size += 1
 
     def add(self, index, value):
+        if self.__checkIndexForAdd(index) == False:
+            return False
+
         if index == 0 and self.__size == 0:
             n = Node(None, None, value)
             self.__front = n
@@ -74,7 +77,7 @@ class DoublyLinkedList:
             self.__front = n
             self.__size += 1
 
-        elif index == self.__size - 1:
+        elif index == self.__size:
             n = Node(None, self.__tail, value)
             self.__tail.setNext(n)
             self.__tail = n
@@ -83,7 +86,7 @@ class DoublyLinkedList:
         else:
             n = Node(None, None, value)
             temp = self.__front
-            for x in range(0, index - 1):
+            for x in range(0, index):
                 temp = temp.getNext()
             prev = temp.getPrev()
             temp.setPrev(n)
@@ -93,6 +96,9 @@ class DoublyLinkedList:
             self.__size += 1
 
     def get(self, index):
+        if self.__checkIndex(index) == False:
+            return False
+
         if index == 0:
             return self.__front.getVal()
 
@@ -101,15 +107,15 @@ class DoublyLinkedList:
 
         else:
             temp = self.__front
-            for x in range(0, index - 1):
+            for x in range(0, index):
                 temp = temp.getNext()
-            return temp
+            return temp.getVal()
 
     def removeFirst(self):
-        if (self.__size == 0):
-            return "fail"
+        if self.__size == 0:
+            return False
 
-        elif (self.__size == 1):
+        elif self.__size == 1:
             self.__front = None
             self.__tail = None
             self.__size -= 1
@@ -121,10 +127,10 @@ class DoublyLinkedList:
             self.__size -= 1
 
     def removeLast(self):
-        if (self.__size == 0):
-            return "fail"
+        if self.__size == 0:
+            return False
 
-        elif (self.__size == 1):
+        elif self.__size == 1:
             self.__front = None
             self.__tail = None
             self.__size -= 1
@@ -136,3 +142,26 @@ class DoublyLinkedList:
             self.__size -= 1
 
     #def remove(index):
+
+    def __checkIndexForAdd(self, index):
+        if index < 0:
+            return False
+        
+        elif index > self.__size:
+            return False
+
+        else:
+            return True
+
+    def __checkIndex(self, index):
+        if index < 0:
+            return False
+        
+        elif self.__size == 0:
+            return False
+        
+        elif index > self.__size - 1:
+            return False
+
+        else:
+            return True
