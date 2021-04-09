@@ -1,7 +1,7 @@
 class Node:
 
-    def __init__(self, next=None, prev=None, val=None):
-        self.next = next
+    def __init__(self, nextn=None, prev=None, val=None):
+        self.next = nextn
         self.prev = prev
         self.val = val
 
@@ -121,9 +121,9 @@ class DoublyLinkedList:
             self.__size -= 1
 
         else:
-            next = self.__front.getNext()
-            next.setPrev(None)
-            self.__front = next
+            nextn = self.__front.getNext()
+            nextn.setPrev(None)
+            self.__front = nextn
             self.__size -= 1
 
     def removeLast(self):
@@ -141,7 +141,38 @@ class DoublyLinkedList:
             self.__tail = prev
             self.__size -= 1
 
-    #def remove(index):
+    def remove(self, index):
+        if self.__checkIndex(index) == False:
+            return False
+        
+        elif self.__size == 1:
+            self.__front = None
+            self.__tail = None
+            self.__size -= 1
+
+        elif index == 0:
+            nextn = self.__front.getNext()
+            nextn.setPrev(None)
+            self.__front = nextn
+            self.__size -= 1
+
+        elif index == self.__size - 1:
+            prev = self.__tail.getPrev()
+            prev.setNext(None)
+            self.__tail = prev
+            self.__size -= 1
+
+        else:
+            temp = self.__front
+            for x in range(0, index):
+                temp = temp.getNext()
+            nextn = temp.getNext()
+            prev = temp.getPrev()
+
+            nextn.setPrev(prev)
+            prev.setNext(nextn)
+            self.__size -= 1
+
 
     def __checkIndexForAdd(self, index):
         if index < 0:
