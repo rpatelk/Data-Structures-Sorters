@@ -1,7 +1,7 @@
 import unittest
 from DoublyLinkedList import DoublyLinkedList
 
-# Test class for Library class
+# Test class for the DoublyLinkedList class
 # @author Raj Patel
 class DoublyLinkedListTest(unittest.TestCase):
 
